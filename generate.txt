@@ -1,0 +1,122 @@
+
+//-------------- Hardware Config ---------------------
+
+//------------------- Process EMIC-Generate files result ----------------
+
+// Functions:
+
+
+// Events:
+
+
+//------------------- APIs -----------------------
+
+// LED de estado
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Protocolo del módulo: config BLOQUEANTE de instancia (Configurator estándar,
+// como ModbusMode). Excluyente en v1: un firmware es Modbus O MQTT — comparten
+// el unico recv del ENC28J60, coexistir requeriria un demux comun (v2).
+
+// Esclavo Modbus TCP (ENC28J60 por SPI1, IP fija 192.168.0.30, 20 holding regs)
+// El modo (map|registers) es un config BLOQUEANTE elegido al instanciar via el
+// Configurator (EMIC:json) de ModbusTCP.emic; llega como config.ModbusMode.
+
+// Config BLOQUEANTE de instancia (Configurator estándar, como el protocolo del USB):
+// el integrador elige el modo UNA vez al instanciar el módulo (irreversible en
+// producción; solo el entorno de desarrollo puede regenerar recursos). En modo map
+// los recursos legacy (setReg/getReg/onRegWritten) NO existen: sus bloques de
+// metadata quedan fuera de la discovery de la instancia y su código fuera del build.
+// El valor elegido llega como macro config.ModbusMode (config.json de la instancia);
+// el branch discovery precomputa los recursos POR OPCIÓN automáticamente.
+
+// Deriva el define que gatean el resto de este archivo y el .c
+// (modbusMode_<instancia>_map | modbusMode_<instancia>_registers).
+
+// --- Configuración de red (variables de la API, patrón @var estándar) ---
+// El integrador les asigna valor desde el editor como a cualquier variable.
+// Persistencia: las vars llevan persist_ (sección .persist) y el módulo incluye
+// _api/System/Persist — saveVars/loadVars las guarda/restaura en flash interna.
+// Consumo: el init de la API parsea ip/mac (texto) y port a la identidad viva
+// del stack; texto inválido => quedan los defaults de fábrica. Para aplicar la
+// config guardada llamá loadVars en SystemConfig (corre antes de los inits);
+// un cambio posterior requiere reset.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Modbus binding maps:
+
+
+
+
+
+
+// Persistencia en flash interna de las variables persist_ (config de red del
+// protocolo elegido). Expone saveVars/loadVars al integrador.
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-------------------- main  -----------------------
+
+
+
+
+
+
+
+
+
+
+
+//------------------- Copy EMIC-Generate files result ----------------
+
+//------------------- Set userFncFile.c as a compiler module ----------------
+
+//------------------- Add all compiler modules to the project ----------------
+
